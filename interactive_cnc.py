@@ -12,7 +12,7 @@ Allows the user to easily manually drive the CNC around the volume.
 /_/  |_\__,_/\___/_/ /_/  /_/  /_/\__,_/_/ /_/_/ /_/
 '''
 # Imports
-#from lab.cnc import CNC
+from lab.cnc import CNC
 import colorama as colors
 print("Disclaimer!")
 print("This program has been modified by Aden Mann and is otherwise the property of the Texas A&M Physics Department.")
@@ -187,9 +187,13 @@ def choose_session(cnc):
     print('3: Custom Direction order and cyclable axes (ADEN)')
     while True:
         choice = input("Input CNC session choice: ")
-        if choice in sessions:
-            break
-        else:
+        try:
+            choice = int(choice)
+            if choice in sessions:
+                break
+            else:
+                print(f"Input Error: {choice} is not a valid choice")
+        except ValueError:
             print(f"Input Error: {choice} is not a valid choice")
     if choice == 1:
         interactive_cnc_session(cnc)
